@@ -4,13 +4,17 @@
 
     <b-row>
       <b-col>
-        <b-form-datepicker v-model="item.date"></b-form-datepicker>
+        <b-form-datepicker
+          v-model="item.date"
+          locale="pt-BR"
+        ></b-form-datepicker>
       </b-col>
     </b-row>
 
     <b-row>
       <b-col sm="4">
         <b-icon
+          class="icon"
           v-bind:icon="calculateEmoji(item.value)"
           aria-hidden="true"
         ></b-icon>
@@ -18,18 +22,19 @@
       <b-col sm="8">
         <b-input-group>
           <b-input-group-prepend>
-            <b-button @click="item.value -= item.value > 0 ? 0.5 : 0"
+            <b-button @click="item.value -= item.value > 1 ? 1 : 0"
               >Negativo</b-button
             >
           </b-input-group-prepend>
-          <b-form-rating
+          <input type="range" min="1" max="5" step="1" v-model="item.value"/>
+          <!--<b-form-rating
             icon-empty="circle"
             icon-half="circle-half"
             icon-full="circle-fill"
             v-model="item.value"
-          ></b-form-rating>
+          ></b-form-rating>-->
           <b-input-group-append>
-            <b-button @click="item.value += item.value < 5 ? 0.5 : 0"
+            <b-button @click="item.value += item.value < 5 ? 1 : 0"
               >Positivo</b-button
             >
           </b-input-group-append>
@@ -66,14 +71,19 @@
       </b-col>
     </b-row>
 
-    <b-row align-h="end">
-      <b-button @click="save(item)">Salvar</b-button>
+    <b-row>
+      <b-col style="text-align:right;">
+        <b-button @click="save(item)">Salvar</b-button>
+      </b-col>
     </b-row>
   </b-container>
 </template>
 <style scoped>
 textarea {
   resize: none;
+}
+.icon {
+  font-size: 2vw;
 }
 </style>
 <script>
@@ -84,7 +94,7 @@ const formatDate = (date) =>
     date.getDate()
   )}`;
 const base = {
-  value: null,
+  value: 3,
   situation: null,
   feelings: null,
   date: formatDate(current_date),

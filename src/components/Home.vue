@@ -7,16 +7,26 @@
       </b-button>
     </b-alert>
     <b-row>
-      <b-col>
-        <b-button variant="outline-primary" @click="previousMonth" title="<<"
+      <b-col cols="3">
+        <b-button
+          variant="outline-primary"
+          @click="previousMonth"
+          title="<<"
+          block
+          style="height:100%"
           >&lt;&lt;</b-button
         >
       </b-col>
-      <b-col>
+      <b-col cols="6" class="monthLabel">
         {{ monthLabel }}
       </b-col>
-      <b-col>
-        <b-button variant="outline-primary" @click="nextMonth" title=">>"
+      <b-col cols="3">
+        <b-button
+          variant="outline-primary"
+          @click="nextMonth"
+          title=">>"
+          block
+          style="height:100%"
           >&gt;&gt;</b-button
         >
       </b-col>
@@ -55,9 +65,15 @@
 .container-item:first-child {
   font-size: 4vw;
 }
+.monthLabel {
+  font-size: 2vw;
+}
+.today {
+  font-weight: bolder;
+}
 </style>
 <script>
-import update from '../mixins/update'
+import update from "../mixins/update";
 
 export default {
   name: "NewLog",
@@ -108,6 +124,7 @@ export default {
         let counter = 0;
         let curRow = null;
         let days = [];
+        const today = new Date();
         while (index.getMonth() === this.base.getMonth()) {
           if (counter % 7 === 0) {
             curRow = tbody.insertRow();
@@ -120,6 +137,13 @@ export default {
             curCell.appendChild(document.createTextNode(""));
             continue;
           }
+
+          if (
+            (index.getFullYear() === today.getFullYear()) &
+            (index.getMonth() === today.getMonth()) &
+            (index.getDate() === today.getDate())
+          )
+            curCell.classList.add("today");
 
           const formatedDate = this.formatDate(index);
           const dayOfMonth = index.getDate();
