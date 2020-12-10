@@ -102,6 +102,9 @@ const base = {
 export default {
   name: "Log",
   data() {
+    if (this.$route.query.day)
+      base.date = this.$route.query.day;
+      
     let item = this.clone(base);
 
     this.fetchData();

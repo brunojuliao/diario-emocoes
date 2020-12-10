@@ -1,9 +1,33 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col class="text-center">
-        <h3>{{ this.getFormatedDateToTitle(new Date(this.$route.params.day + 'T00:00')) }}</h3>
+      <b-col cols="3">
+        <b-button
+          variant="outline-primary"
+          @click="previousDate"
+          title="<<"
+          block
+          style="height:100%"
+          >&lt;&lt;</b-button
+        >
       </b-col>
+      <b-col cols="6" class="monthLabel">
+        <h3>{{ this.getFormatedDateToTitle(current) }}</h3>
+      </b-col>
+      <b-col cols="3">
+        <b-button
+          variant="outline-primary"
+          @click="nextDate"
+          title=">>"
+          block
+          style="height:100%"
+          >&gt;&gt;</b-button
+        >
+      </b-col>
+    </b-row>
+    <br>
+    <b-row v-show="!items.length">
+      <b-col>Não há registros para esse dia...</b-col>
     </b-row>
     <b-row v-for="item in items" :key="item.uuid">
       <b-col cols="1">
@@ -68,12 +92,15 @@ export default {
     fetchData() {
       this.loading = true;
       //console.log("fetch invoked");
+      //console.log(this.$route.params.day);
       if (!this.$route.params.day) {
         this.loading = false;
+        this.current = new Date();
         this.setItem(this.clone(base));
         return;
       }
       const day = this.$route.params.day;
+      this.current = new Date(day + 'T00:00');
       this.getLogsByDate(
         day,
         (items) => {
@@ -110,6 +137,20 @@ export default {
         },
         (err) => console.log("Erro:", err)
       );
+    },
+    previousDate() {
+      const previous = new Date(this.current.toDateString());
+      //console.log(previous);
+      previous.setDate(previous.getDate() - 1);
+      const formatedDate = this.formatDate(previous);
+      this.$router.push(`/log-day/${formatedDate}`);
+    },
+    nextDate() {
+      const next = new Date(this.current.toDateString());
+      //console.log(next);
+      next.setDate(next.getDate() + 1);
+      const formatedDate = this.formatDate(next);
+      this.$router.push(`/log-day/${formatedDate}`);
     },
   },
 };

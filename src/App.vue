@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/log">Nova Entrada</router-link>
+      <router-link to="/log" v-show="!this.$route.params.day">Nova Entrada</router-link>
+      <router-link :to="`/log?day=${this.$route.params.day}`" v-show="this.$route.params.day">Nova Entrada</router-link>
     </div>
     <router-view />
   </div>
