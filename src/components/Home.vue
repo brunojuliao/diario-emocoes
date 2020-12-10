@@ -66,7 +66,7 @@
   font-size: 4vw;
 }
 .monthLabel {
-  font-size: 2vw;
+  font-size: 4vw;
 }
 .today {
   font-weight: bolder;

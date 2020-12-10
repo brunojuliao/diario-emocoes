@@ -20,25 +20,25 @@
         ></b-icon>
       </b-col>
       <b-col sm="8">
-        <b-input-group>
+        <!--<b-input-group>
           <b-input-group-prepend>
             <b-button @click="item.value -= item.value > 1 ? 1 : 0"
               >Negativo</b-button
             >
-          </b-input-group-prepend>
-          <input type="range" min="1" max="5" step="1" v-model="item.value"/>
+          </b-input-group-prepend>-->
+          <input type="range" min="1" max="5" step="1" v-model="item.value" style="width:100%;"/>
           <!--<b-form-rating
             icon-empty="circle"
             icon-half="circle-half"
             icon-full="circle-fill"
             v-model="item.value"
           ></b-form-rating>-->
-          <b-input-group-append>
+          <!--<b-input-group-append>
             <b-button @click="item.value += item.value < 5 ? 1 : 0"
               >Positivo</b-button
             >
           </b-input-group-append>
-        </b-input-group>
+        </b-input-group>-->
       </b-col>
     </b-row>
 
@@ -83,7 +83,7 @@ textarea {
   resize: none;
 }
 .icon {
-  font-size: 2vw;
+  font-size: 2.4rem;
 }
 </style>
 <script>
@@ -104,7 +104,7 @@ export default {
   data() {
     if (this.$route.query.day)
       base.date = this.$route.query.day;
-      
+
     let item = this.clone(base);
 
     this.fetchData();
