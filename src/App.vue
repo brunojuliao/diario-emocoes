@@ -10,6 +10,9 @@
 </template>
 
 <style>
+body, a {
+  color: #2c3e50 !important;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,6 +31,6 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #40B7AD !important;
 }
 </style>
